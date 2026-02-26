@@ -1,7 +1,7 @@
 {
-  "name": "vscode-syntax-gha-github-script",
-  "displayName": "GitHub Actions github-script Syntax",
-  "description": "Embedded JavaScript syntax highlighting for actions/github-script in GitHub Actions YAML files.",
+  "name": "vscode-gha-embedded-syntax",
+  "displayName": "GitHub Actions Embedded Syntax",
+  "description": "Embedded syntax highlighting for GitHub Actions YAML (actions/github-script and run blocks with shell detection; best with github.vscode-github-actions).",
   "version": "0.0.1",
   "publisher": "local",
   "private": true,
@@ -13,6 +13,16 @@
   },
   "categories": [
     "Programming Languages"
+  ],
+  "keywords": [
+    "github-actions",
+    "workflow",
+    "yaml",
+    "syntax-highlighting",
+    "github-script",
+    "shell",
+    "powershell",
+    "bash"
   ],
   "contributes": {
     "grammars": [
@@ -26,6 +36,23 @@
           "source.github-actions-workflow"
         ],
         "embeddedLanguages": {
+          "meta.embedded.block.javascript": "javascript"
+        }
+      },
+      {
+        "scopeName": "gha.run-shell.injection",
+        "path": "./syntaxes/github-actions-run-shell.injection.tmLanguage.json",
+        "injectTo": [
+          "source.yaml",
+          "source.yaml.github-actions",
+          "source.github-actions",
+          "source.github-actions-workflow"
+        ],
+        "embeddedLanguages": {
+          "meta.embedded.block.shellscript": "shellscript",
+          "meta.embedded.block.powershell": "powershell",
+          "meta.embedded.block.bat": "bat",
+          "meta.embedded.block.python": "python",
           "meta.embedded.block.javascript": "javascript"
         }
       }

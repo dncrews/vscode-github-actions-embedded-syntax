@@ -10,10 +10,20 @@ jobs:
       - uses: actions/github-script@v8
         with:
           script: |
+            const title = `Build for ${context.ref}`;
             const issue = context.issue;
+            const labels = ["ci", "automation"];
+            if (!issue.issue_number) {
+              core.warning("No issue number in context");
+              return;
+            }
             await github.rest.issues.createComment({
               ...issue,
-              body: "hello"
+              body: [
+                "hello",
+                `labels: ${labels.join(", ")}`,
+                `title: ${title}`
+              ].join("\n")
             });
           retries: 2
       - uses: actions/github-script@v8
@@ -21,6 +31,8 @@ jobs:
           script: >
             const x = 1;
             const y = 2;
+            const sum = x + y;
+            console.log({ x, y, sum });
       - uses: actions/setup-node@v4
         with:
           node-version: 20

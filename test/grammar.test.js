@@ -82,20 +82,19 @@ function analyzeFixture(name) {
 test('matches github-script step and only embeds script block bodies', () => {
   const result = analyzeFixture('github-script-basic.yml');
 
-  assert.deepEqual([...result.githubScriptStepUsesLines], [10, 19]);
-  assert.deepEqual([...result.scriptHeaderLines], [12, 21]);
+  assert.deepEqual([...result.githubScriptStepUsesLines], [10, 29]);
+  assert.deepEqual([...result.scriptHeaderLines], [12, 31]);
 
   assert.ok(result.scriptBodyLines.has(13));
   assert.ok(result.scriptBodyLines.has(14));
-  assert.ok(result.scriptBodyLines.has(15));
-  assert.ok(result.scriptBodyLines.has(16));
-  assert.ok(result.scriptBodyLines.has(17));
+  assert.ok(result.scriptBodyLines.has(20));
+  assert.ok(result.scriptBodyLines.has(27));
   assert.ok(!result.scriptBodyLines.has(12), 'script header line should not be embedded');
-  assert.ok(!result.scriptBodyLines.has(18), 'next mapping key should end the script block');
+  assert.ok(!result.scriptBodyLines.has(28), 'next mapping key should end the script block');
 
-  assert.ok(result.scriptBodyLines.has(22));
-  assert.ok(result.scriptBodyLines.has(23));
-  assert.ok(!result.scriptBodyLines.has(24), 'next step should end folded script block');
+  assert.ok(result.scriptBodyLines.has(32));
+  assert.ok(result.scriptBodyLines.has(35));
+  assert.ok(!result.scriptBodyLines.has(36), 'next step should end folded script block');
 
   assert.ok(!result.scriptBodyLines.has(11), 'with line should not be embedded');
   assert.ok(!result.scriptBodyLines.has(10), 'uses line should not be embedded');
