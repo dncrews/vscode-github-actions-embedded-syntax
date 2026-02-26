@@ -1,0 +1,46 @@
+name: test
+
+on: workflow_dispatch
+
+jobs:
+  demo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: pwsh example
+        shell: pwsh
+        env:
+          FOO: bar
+        run: |
+          $ErrorActionPreference = "Stop"
+          $name = "world"
+          Write-Host "hello"
+          $x = 1
+          if ($x -gt 0) {
+            Write-Host ("value={0} name={1}" -f $x, $name)
+          }
+
+      - name: bash example
+        shell: bash
+        working-directory: tools
+        run: >
+          set -euo pipefail
+          name="world"
+          echo "hi ${name}"
+          printf '%s\n' "there"
+
+      - name: shell after run (documented non-match)
+        run: |
+          echo "no dynamic shell highlighting"
+        shell: python
+
+      - name: quoted node shell
+        shell: "node"
+        run: |
+          const values = [1, 2, 3];
+          const total = values.reduce((a, b) => a + b, 0);
+          console.log({ total, values });
+
+      - name: unknown shell
+        shell: ruby
+        run: |
+          puts "hi"
