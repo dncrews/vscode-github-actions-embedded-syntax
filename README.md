@@ -109,7 +109,12 @@ npm install
 npm run publish:extension
 ```
 
-For GitHub Actions publishing, add a `VSCE_PAT` repository secret. Tagged releases will package the extension, upload the `.vsix` as an artifact, and publish to the Marketplace when that secret is available. Pushes to `main` also update a GitHub prerelease named `Nightly` with the latest `.vsix` attached for manual testing.
+For GitHub Actions publishing, add these repository secrets:
+
+- `RELEASE_PLEASE_TOKEN` for the token used by `release-please` to open/update release PRs and create the final release tag
+- `VSCE_PAT` for publishing the extension to the Visual Studio Marketplace
+
+Tagged releases will package the extension, upload the `.vsix` as an artifact, and publish to the Marketplace when that secret is available. Pushes to `main` also update a GitHub prerelease named `Nightly` with the latest `.vsix` attached for manual testing.
 
 Versioned releases are managed by `release-please` from conventional commits on `main`. The [release-please.yml](/Users/crewsdx/Developer/vscode-syntax-gha/.github/workflows/release-please.yml) workflow opens or updates a release PR with the generated changelog and version bumps. When that PR is merged, `release-please` creates the `v*` tag and your existing release workflow publishes the extension from that tag.
 

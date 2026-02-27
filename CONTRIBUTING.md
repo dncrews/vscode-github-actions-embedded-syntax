@@ -30,7 +30,7 @@ BREAKING CHANGE: shell detection now requires explicit step-level shell keys
 Releases are managed by `release-please`.
 
 1. Conventional commits are merged into `main`.
-2. The `Release Please` workflow opens or updates a release PR.
+2. The `Release Please` workflow opens or updates a release PR using the `RELEASE_PLEASE_TOKEN` repository secret.
 3. That PR updates `package.json`, `package-lock.json`, and `CHANGELOG.md`.
 4. Merging the release PR creates the `v*` tag.
 5. The tag triggers the publish workflow for the VS Code extension.
