@@ -1,0 +1,12 @@
+name: test
+
+on: workflow_dispatch
+
+jobs:
+  demo:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: "actions/github-script@v8" # comment on quoted uses
+        with:
+          script: | # comment on script header
+            const ok = true;
