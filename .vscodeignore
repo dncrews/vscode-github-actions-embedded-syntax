@@ -1,0 +1,10 @@
+.git/**
+.github/**
+.vscode/**
+.yarn/**
+test/**
+*.log
+node_modules/**
+yarn.lock
+.pnp.*
+.DS_Store

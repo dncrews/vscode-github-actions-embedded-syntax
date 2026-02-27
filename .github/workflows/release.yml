@@ -1,0 +1,80 @@
+name: Release extension
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npm test
+
+      - name: Package extension
+        shell: bash
+        run: >
+          npm run package -- --out vscode-github-actions-embedded-syntax.vsix
+
+      - name: Upload VSIX artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: vscode-github-actions-embedded-syntax
+          path: vscode-github-actions-embedded-syntax.vsix
+
+      - name: Create or update nightly prerelease
+        if: github.ref == 'refs/heads/main'
+        uses: ncipollo/release-action@v1
+        with:
+          artifactErrorsFailBuild: true
+          artifacts: vscode-github-actions-embedded-syntax.vsix
+          allowUpdates: true
+          replacesArtifacts: true
+          removeArtifacts: true
+          prerelease: true
+          tag: nightly
+          name: Nightly
+          body: |
+            Latest build from the `main` branch.
+
+            Download the `.vsix` below and install it in VS Code with `Extensions: Install from VSIX...`.
+          commit: ${{ github.sha }}
+
+      - name: Create versioned GitHub release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: ncipollo/release-action@v1
+        with:
+          artifactErrorsFailBuild: true
+          artifacts: vscode-github-actions-embedded-syntax.vsix
+          allowUpdates: true
+          replacesArtifacts: true
+          removeArtifacts: true
+          tag: ${{ github.ref_name }}
+          name: ${{ github.ref_name }}
+          commit: ${{ github.sha }}
+
+      - name: Publish to Visual Studio Marketplace
+        if: startsWith(github.ref, 'refs/tags/')
+        env:
+          VSCE_PAT: ${{ secrets.VSCE_PAT }}
+        shell: bash
+        run: >
+          npx vsce publish -p "$VSCE_PAT"

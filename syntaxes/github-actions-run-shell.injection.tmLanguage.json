@@ -37,7 +37,9 @@
         }
       ]
     },
-    "run-header-captures": {
+    "shell-bash": {
+      "name": "meta.github-actions.run-shell.context",
+      "begin": "^(\\s*(?:-\\s+)?)(shell)(\\s*:\\s*)((?:['\\\"])?(?:bash|sh)(?:['\\\"])?)(\\s*(?:#.*)?)$",
       "beginCaptures": {
         "2": {
           "name": "entity.name.tag.yaml"
@@ -46,13 +48,9 @@
           "name": "punctuation.separator.key-value.mapping.yaml"
         },
         "4": {
-          "name": "string.unquoted.block.yaml"
+          "name": "string.unquoted.plain.out.yaml"
         }
-      }
-    },
-    "shell-bash": {
-      "name": "meta.github-actions.run-shell.context",
-      "begin": "^(?=\\s*(?:-\\s+)?shell\\s*:\\s*(?:['\\\"])?(?:bash|sh)(?:['\\\"])?\\s*(?:#.*)?$)",
+      },
       "end": "^(?=\\s*-\\s|\\S|\\z)",
       "patterns": [
         {
@@ -83,7 +81,18 @@
     },
     "shell-powershell": {
       "name": "meta.github-actions.run-shell.context",
-      "begin": "^(?=\\s*(?:-\\s+)?shell\\s*:\\s*(?:['\\\"])?(?:pwsh|powershell)(?:['\\\"])?\\s*(?:#.*)?$)",
+      "begin": "^(\\s*(?:-\\s+)?)(shell)(\\s*:\\s*)((?:['\\\"])?(?:pwsh|powershell)(?:['\\\"])?)(\\s*(?:#.*)?)$",
+      "beginCaptures": {
+        "2": {
+          "name": "entity.name.tag.yaml"
+        },
+        "3": {
+          "name": "punctuation.separator.key-value.mapping.yaml"
+        },
+        "4": {
+          "name": "string.unquoted.plain.out.yaml"
+        }
+      },
       "end": "^(?=\\s*-\\s|\\S|\\z)",
       "patterns": [
         {
@@ -114,7 +123,18 @@
     },
     "shell-cmd": {
       "name": "meta.github-actions.run-shell.context",
-      "begin": "^(?=\\s*(?:-\\s+)?shell\\s*:\\s*(?:['\\\"])?cmd(?:['\\\"])?\\s*(?:#.*)?$)",
+      "begin": "^(\\s*(?:-\\s+)?)(shell)(\\s*:\\s*)((?:['\\\"])?cmd(?:['\\\"])?)(\\s*(?:#.*)?)$",
+      "beginCaptures": {
+        "2": {
+          "name": "entity.name.tag.yaml"
+        },
+        "3": {
+          "name": "punctuation.separator.key-value.mapping.yaml"
+        },
+        "4": {
+          "name": "string.unquoted.plain.out.yaml"
+        }
+      },
       "end": "^(?=\\s*-\\s|\\S|\\z)",
       "patterns": [
         {
@@ -145,7 +165,18 @@
     },
     "shell-python": {
       "name": "meta.github-actions.run-shell.context",
-      "begin": "^(?=\\s*(?:-\\s+)?shell\\s*:\\s*(?:['\\\"])?python(?:['\\\"])?\\s*(?:#.*)?$)",
+      "begin": "^(\\s*(?:-\\s+)?)(shell)(\\s*:\\s*)((?:['\\\"])?python(?:['\\\"])?)(\\s*(?:#.*)?)$",
+      "beginCaptures": {
+        "2": {
+          "name": "entity.name.tag.yaml"
+        },
+        "3": {
+          "name": "punctuation.separator.key-value.mapping.yaml"
+        },
+        "4": {
+          "name": "string.unquoted.plain.out.yaml"
+        }
+      },
       "end": "^(?=\\s*-\\s|\\S|\\z)",
       "patterns": [
         {
@@ -176,7 +207,18 @@
     },
     "shell-node": {
       "name": "meta.github-actions.run-shell.context",
-      "begin": "^(?=\\s*(?:-\\s+)?shell\\s*:\\s*(?:['\\\"])?node(?:['\\\"])?\\s*(?:#.*)?$)",
+      "begin": "^(\\s*(?:-\\s+)?)(shell)(\\s*:\\s*)((?:['\\\"])?node(?:['\\\"])?)(\\s*(?:#.*)?)$",
+      "beginCaptures": {
+        "2": {
+          "name": "entity.name.tag.yaml"
+        },
+        "3": {
+          "name": "punctuation.separator.key-value.mapping.yaml"
+        },
+        "4": {
+          "name": "string.unquoted.plain.out.yaml"
+        }
+      },
       "end": "^(?=\\s*-\\s|\\S|\\z)",
       "patterns": [
         {

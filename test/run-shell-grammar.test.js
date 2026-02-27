@@ -132,3 +132,22 @@ test('run header regex captures YAML-like pieces for each shell context', () => 
     assert.equal(match[4], '|');
   }
 });
+
+test('shell header regex captures YAML-like pieces for each shell context', () => {
+  const samples = {
+    'shell-bash': '        shell: bash',
+    'shell-powershell': '        shell: "pwsh" # explicit shell',
+    'shell-cmd': '        shell: cmd',
+    'shell-python': '        shell: python',
+    'shell-node': "        shell: 'node'"
+  };
+
+  for (const ctx of compileTopLevelContexts()) {
+    const rule = grammar.repository[ctx.repoKey];
+    const match = new RegExp(rule.begin).exec(samples[ctx.repoKey]);
+
+    assert.ok(match, `${ctx.repoKey} should match shell header`);
+    assert.equal(match[2], 'shell');
+    assert.equal(match[3], ': ');
+  }
+});
