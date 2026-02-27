@@ -41,7 +41,7 @@
   "contributes": {
     "grammars": [
       {
-        "scopeName": "gha.github-script.injection",
+        "scopeName": "source.yaml.gha.github-script.injection",
         "path": "./syntaxes/github-actions-github-script.injection.tmLanguage.json",
         "injectTo": [
           "source.yaml",
@@ -54,7 +54,7 @@
         }
       },
       {
-        "scopeName": "gha.run-shell.injection",
+        "scopeName": "source.yaml.gha.run-shell.injection",
         "path": "./syntaxes/github-actions-run-shell.injection.tmLanguage.json",
         "injectTo": [
           "source.yaml",

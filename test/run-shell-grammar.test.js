@@ -4,6 +4,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 
 const root = path.resolve(__dirname, '..');
+const packageJson = JSON.parse(fs.readFileSync(path.join(root, 'package.json'), 'utf8'));
 const grammar = JSON.parse(
   fs.readFileSync(
     path.join(root, 'syntaxes', 'github-actions-run-shell.injection.tmLanguage.json'),
@@ -150,4 +151,15 @@ test('shell header regex captures YAML-like pieces for each shell context', () =
     assert.equal(match[2], 'shell');
     assert.equal(match[3], ': ');
   }
+});
+
+test('run-shell grammar scope name matches the packaged contribution and schema pattern', () => {
+  const scopeNamePattern = /^(text|source)(\.[\w0-9-]+)+$/;
+  const contribution = packageJson.contributes.grammars.find(
+    (entry) => entry.path === './syntaxes/github-actions-run-shell.injection.tmLanguage.json'
+  );
+
+  assert.ok(contribution, 'run-shell grammar should be contributed from package.json');
+  assert.equal(grammar.scopeName, contribution.scopeName);
+  assert.match(grammar.scopeName, scopeNamePattern);
 });

@@ -1,0 +1,17 @@
+name: test
+
+jobs:
+  demo:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@feature/foo
+        # This is just an env var named "script", not the action input.
+        # It must remain plain YAML text even inside a github-script step.
+        env:
+          script: |
+            echo "not javascript"
+        # Only with.script should embed as JavaScript for actions/github-script.
+        with:
+          script: |
+            const ok = true;
+          retries: 1
