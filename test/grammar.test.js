@@ -17,6 +17,7 @@ const scriptRule = outerRule.patterns[0];
 const outerBegin = new RegExp(outerRule.begin);
 const outerEnd = new RegExp(outerRule.end);
 const scriptBegin = new RegExp(scriptRule.begin);
+const githubScriptUsesLine = /uses\s*:\s*(?:"actions\/github-script(?:@[A-Za-z0-9._-]+)?"|'actions\/github-script(?:@[A-Za-z0-9._-]+)?'|actions\/github-script(?:@[A-Za-z0-9._-]+)?)/;
 
 function scriptEndRegex(indent) {
   return new RegExp(scriptRule.end.replace('\\1', indent.replace(/\\/g, '\\\\')));
@@ -44,7 +45,7 @@ function analyzeFixture(name) {
 
     if (!inContext && outerBegin.test(line)) {
       inContext = true;
-      if (/uses\s*:\s*actions\/github-script\b/.test(line)) {
+      if (githubScriptUsesLine.test(line)) {
         githubScriptStepUsesLines.add(lineNo);
       }
     }
@@ -98,6 +99,17 @@ test('matches github-script step and only embeds script block bodies', () => {
 
   assert.ok(!result.scriptBodyLines.has(11), 'with line should not be embedded');
   assert.ok(!result.scriptBodyLines.has(10), 'uses line should not be embedded');
+});
+
+test('matches quoted github-script uses lines and allows header comments', () => {
+  const result = analyzeFixture('github-script-comments.yml');
+
+  assert.deepEqual([...result.githubScriptStepUsesLines], [9]);
+  assert.deepEqual([...result.scriptHeaderLines], [11]);
+  assert.ok(result.scriptBodyLines.has(12));
+  assert.ok(!result.scriptBodyLines.has(9), 'quoted uses line should not be embedded');
+  assert.ok(!result.scriptBodyLines.has(10), 'with line should not be embedded');
+  assert.ok(!result.scriptBodyLines.has(11), 'script header line should not be embedded');
 });
 
 test('does not embed script blocks for non-github-script actions', () => {

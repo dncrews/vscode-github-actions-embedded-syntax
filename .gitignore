@@ -137,3 +137,6 @@ dist
 # Vite logs files
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+
+# Additional files to ignore for vscode-github-actions extension
+vscode-github-actions

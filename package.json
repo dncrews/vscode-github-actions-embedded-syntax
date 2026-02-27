@@ -3,8 +3,8 @@
   "displayName": "GitHub Actions Embedded Syntax",
   "description": "Embedded syntax highlighting for GitHub Actions YAML (actions/github-script and run blocks with shell detection; best with github.vscode-github-actions).",
   "version": "0.0.1",
-  "publisher": "local",
-  "private": true,
+  "license": "MIT",
+  "publisher": "dncrews",
   "engines": {
     "vscode": "^1.85.0"
   },

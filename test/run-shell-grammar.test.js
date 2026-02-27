@@ -112,6 +112,15 @@ test('does not match when shell appears after run or shell is unknown', () => {
   assert.ok(!runHeaderLines.includes(45), 'unknown shell should not be embedded');
 });
 
+test('supports quoted shell values with comments and ignores non-block run values', () => {
+  const result = analyzeFixture('run-shell-edge-cases.yml');
+
+  assert.deepEqual(
+    result.runHeaders.map((h) => [h.repoKey, h.embeddedScope]),
+    [['shell-powershell', 'meta.embedded.block.powershell']]
+  );
+});
+
 test('run header regex captures YAML-like pieces for each shell context', () => {
   for (const ctx of compileTopLevelContexts()) {
     const rule = grammar.repository[ctx.repoKey].patterns[0];
