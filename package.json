@@ -1,15 +1,29 @@
 {
-  "name": "vscode-gha-embedded-syntax",
-  "displayName": "GitHub Actions Embedded Syntax",
+  "name": "vscode-github-actions-embedded-syntax",
+  "displayName": "GitHub Actions Embedded Syntax Highlighting",
   "description": "Embedded syntax highlighting for GitHub Actions YAML (actions/github-script and run blocks with shell detection; best with github.vscode-github-actions).",
   "version": "0.0.1",
   "license": "MIT",
   "publisher": "dncrews",
+  "icon": "media/icon.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dncrews/vscode-github-actions-embedded-syntax.git"
+  },
+  "homepage": "https://github.com/dncrews/vscode-github-actions-embedded-syntax",
+  "bugs": {
+    "url": "https://github.com/dncrews/vscode-github-actions-embedded-syntax/issues"
+  },
   "engines": {
     "vscode": "^1.85.0"
   },
   "scripts": {
-    "test": "node --test"
+    "test": "node --test",
+    "package": "vsce package",
+    "publish:extension": "vsce publish"
+  },
+  "devDependencies": {
+    "@vscode/vsce": "^3.6.2"
   },
   "categories": [
     "Programming Languages"
