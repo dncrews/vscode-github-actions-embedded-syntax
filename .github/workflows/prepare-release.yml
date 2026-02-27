@@ -1,0 +1,132 @@
+name: Prepare release
+
+on:
+  workflow_dispatch:
+    inputs:
+      release_type:
+        description: Version bump type
+        required: true
+        type: choice
+        default: patch
+        options:
+          - patch
+          - minor
+          - major
+          - custom
+      custom_version:
+        description: Explicit version to release when release_type is custom
+        required: false
+        type: string
+      changelog_notes:
+        description: Release notes to prepend to CHANGELOG.md (one item per line)
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  prepare-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Require main branch
+        shell: bash
+        run: |
+          if [[ "${GITHUB_REF_NAME}" != "main" ]]; then
+            echo "This workflow must be run from the main branch." >&2
+            exit 1
+          fi
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+
+      - name: Determine next version
+        id: version
+        shell: bash
+        env:
+          RELEASE_TYPE: ${{ inputs.release_type }}
+          CUSTOM_VERSION: ${{ inputs.custom_version }}
+        run: |
+          set -euo pipefail
+
+          if [[ "${RELEASE_TYPE}" == "custom" ]]; then
+            if [[ -z "${CUSTOM_VERSION}" ]]; then
+              echo "custom_version is required when release_type is custom." >&2
+              exit 1
+            fi
+            NEXT_VERSION="${CUSTOM_VERSION}"
+          else
+            NEXT_VERSION="$(npm version "${RELEASE_TYPE}" --no-git-tag-version)"
+            NEXT_VERSION="${NEXT_VERSION#v}"
+            echo "next_version=${NEXT_VERSION}" >> "${GITHUB_OUTPUT}"
+            exit 0
+          fi
+
+          npm version "${NEXT_VERSION}" --no-git-tag-version
+          echo "next_version=${NEXT_VERSION}" >> "${GITHUB_OUTPUT}"
+
+      - name: Update changelog
+        uses: actions/github-script@v8
+        env:
+          NEXT_VERSION: ${{ steps.version.outputs.next_version }}
+          CHANGELOG_NOTES: ${{ inputs.changelog_notes }}
+        with:
+          script: |
+            const fs = require('node:fs');
+
+            const changelogPath = 'CHANGELOG.md';
+            const version = process.env.NEXT_VERSION;
+            const notes = process.env.CHANGELOG_NOTES
+              .split(/\r?\n/)
+              .map((line) => line.trim())
+              .filter(Boolean)
+              .map((line) => (line.startsWith('- ') ? line : `- ${line}`));
+
+            if (notes.length === 0) {
+              throw new Error('changelog_notes must include at least one non-empty line');
+            }
+
+            const current = fs.readFileSync(changelogPath, 'utf8');
+            const header = '# Changelog\n\n';
+            const body = current.startsWith(header) ? current.slice(header.length) : current;
+            const next = `${header}## ${version}\n\n${notes.join('\n')}\n\n${body}`;
+
+            fs.writeFileSync(changelogPath, next);
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npm test
+
+      - name: Commit release changes
+        shell: bash
+        env:
+          NEXT_VERSION: ${{ steps.version.outputs.next_version }}
+        run: |
+          set -euo pipefail
+
+          git config user.name "${GITHUB_ACTOR}"
+          git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+
+          git add package.json package-lock.json CHANGELOG.md
+          git commit -m "chore(release): v${NEXT_VERSION}"
+          git tag "v${NEXT_VERSION}"
+
+      - name: Push commit and tag
+        shell: bash
+        env:
+          NEXT_VERSION: ${{ steps.version.outputs.next_version }}
+        run: |
+          set -euo pipefail
+
+          git push origin main
+          git push origin "v${NEXT_VERSION}"
