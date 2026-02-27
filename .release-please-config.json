@@ -3,7 +3,6 @@
   "packages": {
     ".": {
       "release-type": "node",
-      "package-name": "vscode-github-actions-embedded-syntax",
       "include-v-in-tag": true
     }
   }

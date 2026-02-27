@@ -113,6 +113,25 @@ For GitHub Actions publishing, add a `VSCE_PAT` repository secret. Tagged releas
 
 Versioned releases are managed by `release-please` from conventional commits on `main`. The [release-please.yml](/Users/crewsdx/Developer/vscode-syntax-gha/.github/workflows/release-please.yml) workflow opens or updates a release PR with the generated changelog and version bumps. When that PR is merged, `release-please` creates the `v*` tag and your existing release workflow publishes the extension from that tag.
 
+## Release Process
+
+```mermaid
+flowchart LR
+  A["Conventional commits merged to main"] --> B["Release Please workflow runs"]
+  B --> C["Release PR updates package.json, package-lock.json, and CHANGELOG.md"]
+  C --> D["Release PR is reviewed and merged"]
+  D --> E["release-please creates v* tag"]
+  E --> F["Release workflow packages VSIX and publishes release"]
+  D --> G["Push to main updates Nightly prerelease"]
+```
+
+In practice:
+
+1. Merge conventional commits into `main`.
+2. Review the release PR opened or updated by `release-please`.
+3. Merge that PR when the proposed version and changelog look correct.
+4. Let the tag-triggered release workflow publish the extension.
+
 ## Support
 
 Issues and feature requests: [GitHub issues](https://github.com/dncrews/vscode-github-actions-embedded-syntax/issues)
