@@ -111,13 +111,7 @@ npm run publish:extension
 
 For GitHub Actions publishing, add a `VSCE_PAT` repository secret. Tagged releases will package the extension, upload the `.vsix` as an artifact, and publish to the Marketplace when that secret is available. Pushes to `main` also update a GitHub prerelease named `Nightly` with the latest `.vsix` attached for manual testing.
 
-To cut a release without creating the commit and tag manually, run the `Prepare release` workflow from `main`. It will:
-
-- bump `package.json` and `package-lock.json`
-- prepend a new section to `CHANGELOG.md` from the notes you provide
-- run the test suite
-- commit the release changes to `main`
-- create and push a `v*` tag so the existing release workflow can publish the extension
+Versioned releases are managed by `release-please` from conventional commits on `main`. The [release-please.yml](/Users/crewsdx/Developer/vscode-syntax-gha/.github/workflows/release-please.yml) workflow opens or updates a release PR with the generated changelog and version bumps. When that PR is merged, `release-please` creates the `v*` tag and your existing release workflow publishes the extension from that tag.
 
 ## Support
 
