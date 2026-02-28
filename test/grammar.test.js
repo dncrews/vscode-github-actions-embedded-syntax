@@ -218,6 +218,32 @@ test('matches versionless and single-quoted uses variants', () => {
   assert.ok(result.scriptBodyLines.has(20), 'standard uses body should be embedded');
 });
 
+test('base-fallback repository provides YAML fallback includes in both contexts', () => {
+  const baseFallback = grammar.repository['base-fallback'];
+  assert.ok(baseFallback, 'grammar should define a #base-fallback repository entry');
+
+  const expectedIncludes = [
+    'source.github-actions-workflow',
+    'source.github-actions',
+    'source.yaml.github-actions',
+    'source.yaml'
+  ];
+  const actualIncludes = baseFallback.patterns.map((p) => p.include);
+  assert.deepEqual(actualIncludes, expectedIncludes);
+
+  // Verify both the with-block and outer context reference #base-fallback
+  const withPatterns = withRule.patterns;
+  const outerPatterns = outerRule.patterns;
+  assert.ok(
+    withPatterns.some((p) => p.include === '#base-fallback'),
+    'with-block patterns should reference #base-fallback'
+  );
+  assert.ok(
+    outerPatterns.some((p) => p.include === '#base-fallback'),
+    'outer context patterns should reference #base-fallback'
+  );
+});
+
 test('grammar scope names use a valid TextMate source prefix', () => {
   const scopeNamePattern = /^(text|source)(\.[\w0-9-]+)+$/;
   const contributedScopes = packageJson.contributes.grammars.map((entry) => entry.scopeName);
