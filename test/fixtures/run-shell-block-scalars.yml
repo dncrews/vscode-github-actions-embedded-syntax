@@ -1,0 +1,62 @@
+name: test
+
+on: workflow_dispatch
+
+jobs:
+  demo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: literal strip
+        shell: bash
+        run: |-
+          echo "strip trailing newlines"
+
+      - name: literal keep
+        shell: bash
+        run: |+
+          echo "keep trailing newlines"
+
+      - name: literal with indent indicator
+        shell: bash
+        run: |2
+          echo "explicit indent 2"
+
+      - name: folded strip
+        shell: bash
+        run: >-
+          echo "folded strip"
+
+      - name: folded keep
+        shell: bash
+        run: >+
+          echo "folded keep"
+
+      - name: folded with indent indicator
+        shell: bash
+        run: >2
+          echo "folded indent 2"
+
+      - name: literal strip with indent
+        shell: bash
+        run: |-2
+          echo "strip with indent"
+
+      - name: literal indent then chomp
+        shell: bash
+        run: |2-
+          echo "indent then chomp"
+
+      - name: block with blank line mid-body
+        shell: bash
+        run: |
+          echo "before blank"
+
+          echo "after blank"
+
+      - name: empty block body
+        shell: bash
+        run: |
+      - name: next step after empty block
+        shell: bash
+        run: |
+          echo "after empty"
