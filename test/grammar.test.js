@@ -173,6 +173,23 @@ test('script header regex accepts valid block scalar modifiers and rejects inval
   }
 });
 
+test('embeds script blocks with all valid block scalar modifiers', () => {
+  const result = analyzeFixture('github-script-block-scalars.yml');
+
+  // 6 steps with uses: actions/github-script
+  assert.equal([...result.githubScriptStepUsesLines].length, 6);
+  assert.equal([...result.scriptHeaderLines].length, 6);
+
+  // All 6 script bodies should be detected
+  assert.ok(result.scriptBodyLines.size > 0);
+
+  // The blank-line-mid-body step should include the blank line
+  // Line 32 is "const before = true;", 33 is blank, 34 is "const after = true;"
+  assert.ok(result.scriptBodyLines.has(32));
+  assert.ok(result.scriptBodyLines.has(33));
+  assert.ok(result.scriptBodyLines.has(34));
+});
+
 test('script header regex preserves YAML-like capture groups', () => {
   const match = scriptBegin.exec('          script: |');
 

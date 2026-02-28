@@ -165,6 +165,34 @@ test('run header regex accepts valid block scalar modifiers and rejects invalid 
   }
 });
 
+test('embeds run blocks with all valid block scalar modifiers', () => {
+  const result = analyzeFixture('run-shell-block-scalars.yml');
+
+  // All 11 steps with shell: bash + run: block should be detected
+  assert.equal(result.runHeaders.length, 11);
+
+  // Every detected run header should be shell-bash
+  for (const h of result.runHeaders) {
+    assert.equal(h.repoKey, 'shell-bash');
+  }
+
+  // 10 of 11 steps have body lines (one is an empty block body)
+  const bodyKeys = [...result.runBodies.keys()];
+  assert.equal(bodyKeys.length, 10);
+
+  // The "block with blank line mid-body" step should include blank lines in body
+  const blankLineBody = result.runBodies.get('51:shell-bash');
+  assert.ok(blankLineBody, 'should find body for blank-line-mid-body step');
+  assert.ok(blankLineBody.length >= 3, 'blank line mid-body should have at least 3 body lines');
+
+  // The "empty block body" step should have an empty body
+  const emptyBlockHeader = result.runHeaders.find((h) => {
+    const key = `${h.lineNo}:${h.repoKey}`;
+    return !result.runBodies.has(key);
+  });
+  assert.ok(emptyBlockHeader, 'should find a block with empty body');
+});
+
 test('run-shell grammar scope name matches the packaged contribution and schema pattern', () => {
   const scopeNamePattern = /^(text|source)(\.[\w0-9-]+)+$/;
   const contribution = packageJson.contributes.grammars.find(
