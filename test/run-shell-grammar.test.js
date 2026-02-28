@@ -193,6 +193,36 @@ test('embeds run blocks with all valid block scalar modifiers', () => {
   assert.ok(emptyBlockHeader, 'should find a block with empty body');
 });
 
+test('embeds cmd run blocks with correct scope', () => {
+  const result = analyzeFixture('run-shell-cmd-python.yml');
+  const cmdHeaders = result.runHeaders.filter((h) => h.repoKey === 'shell-cmd');
+
+  assert.equal(cmdHeaders.length, 2);
+  assert.equal(cmdHeaders[0].embeddedScope, 'meta.embedded.block.bat');
+  assert.equal(cmdHeaders[1].embeddedScope, 'meta.embedded.block.bat');
+});
+
+test('embeds python run blocks with correct scope', () => {
+  const result = analyzeFixture('run-shell-cmd-python.yml');
+  const pyHeaders = result.runHeaders.filter((h) => h.repoKey === 'shell-python');
+
+  assert.equal(pyHeaders.length, 2);
+  assert.equal(pyHeaders[0].embeddedScope, 'meta.embedded.block.python');
+  assert.equal(pyHeaders[1].embeddedScope, 'meta.embedded.block.python');
+});
+
+test('embeds sh run blocks as shellscript and powershell run blocks correctly', () => {
+  const result = analyzeFixture('run-shell-sh-powershell.yml');
+  const shHeaders = result.runHeaders.filter((h) => h.repoKey === 'shell-bash');
+  const pwshHeaders = result.runHeaders.filter((h) => h.repoKey === 'shell-powershell');
+
+  assert.equal(shHeaders.length, 2, 'sh should match shell-bash context');
+  assert.equal(shHeaders[0].embeddedScope, 'meta.embedded.block.shellscript');
+
+  assert.equal(pwshHeaders.length, 2, 'powershell should match shell-powershell context');
+  assert.equal(pwshHeaders[0].embeddedScope, 'meta.embedded.block.powershell');
+});
+
 test('run-shell grammar scope name matches the packaged contribution and schema pattern', () => {
   const scopeNamePattern = /^(text|source)(\.[\w0-9-]+)+$/;
   const contribution = packageJson.contributes.grammars.find(
