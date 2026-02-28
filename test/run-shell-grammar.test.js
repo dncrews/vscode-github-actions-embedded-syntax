@@ -153,6 +153,18 @@ test('shell header regex captures YAML-like pieces for each shell context', () =
   }
 });
 
+test('run header regex accepts valid block scalar modifiers and rejects invalid ones', () => {
+  const ctx = compileTopLevelContexts()[0]; // shell-bash
+  const runBegin = ctx.runBegin;
+
+  for (const valid of ['|', '|-', '|+', '|2', '>-', '>+', '>2', '|-2', '|2-', '>+9', '>9+']) {
+    assert.ok(runBegin.test(`        run: ${valid}`), `should match: run: ${valid}`);
+  }
+  for (const invalid of ['|0', '|+-', '|22', '|-+', '>0', '>-+', '>22']) {
+    assert.ok(!runBegin.test(`        run: ${invalid}`), `should reject: run: ${invalid}`);
+  }
+});
+
 test('run-shell grammar scope name matches the packaged contribution and schema pattern', () => {
   const scopeNamePattern = /^(text|source)(\.[\w0-9-]+)+$/;
   const contribution = packageJson.contributes.grammars.find(

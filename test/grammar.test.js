@@ -164,6 +164,15 @@ test('matches slash-containing github-script refs and ignores non-with script ke
   assert.ok(!result.scriptBodyLines.has(12), 'env.script body should remain plain YAML');
 });
 
+test('script header regex accepts valid block scalar modifiers and rejects invalid ones', () => {
+  for (const valid of ['|', '|-', '|+', '|2', '>-', '>+', '>2', '|-2', '|2-']) {
+    assert.ok(scriptBegin.test(`          script: ${valid}`), `should match: script: ${valid}`);
+  }
+  for (const invalid of ['|0', '|+-', '|22', '|-+', '>0', '>-+']) {
+    assert.ok(!scriptBegin.test(`          script: ${invalid}`), `should reject: script: ${invalid}`);
+  }
+});
+
 test('script header regex preserves YAML-like capture groups', () => {
   const match = scriptBegin.exec('          script: |');
 
