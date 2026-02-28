@@ -55,19 +55,19 @@
               ]
             },
             {
-              "include": "source.github-actions-workflow"
-            },
-            {
-              "include": "source.github-actions"
-            },
-            {
-              "include": "source.yaml.github-actions"
-            },
-            {
-              "include": "source.yaml"
+              "include": "#base-fallback"
             }
           ]
         },
+        {
+          "include": "#base-fallback"
+        }
+      ]
+    }
+  ],
+  "repository": {
+    "base-fallback": {
+      "patterns": [
         {
           "include": "source.github-actions-workflow"
         },
@@ -82,6 +82,5 @@
         }
       ]
     }
-  ],
-  "repository": {}
+  }
 }
