@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.0.1](https://github.com/dncrews/vscode-github-actions-embedded-syntax/compare/v1.0.0...v1.0.1) (2026-02-28)
+
+
+### Bug Fixes
+
+* **ci:** do not include package name ([72298be](https://github.com/dncrews/vscode-github-actions-embedded-syntax/commit/72298be64a3bea11b920226aca92bb587455f5a6))
+* **ci:** use tokens and please just release this time ([bc7056a](https://github.com/dncrews/vscode-github-actions-embedded-syntax/commit/bc7056ad4a6b37211330671c0f6993bd388f8866))
+* **ci:** versioning needs to happen on semver-like things ([b059996](https://github.com/dncrews/vscode-github-actions-embedded-syntax/commit/b0599967badecd77552e448486bbfc4edecbe0d4))
+
 ## [1.0.0](https://github.com/dncrews/vscode-github-actions-embedded-syntax/compare/vscode-github-actions-embedded-syntax-v0.0.1...vscode-github-actions-embedded-syntax-v1.0.0) (2026-02-27)
 
 
