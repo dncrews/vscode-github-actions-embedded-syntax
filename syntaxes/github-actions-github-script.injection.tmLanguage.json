@@ -35,7 +35,7 @@
           "patterns": [
             {
               "contentName": "meta.embedded.block.javascript",
-              "begin": "^(\\s+)(script)(\\s*:\\s*)([>|][-+0-9\\s]*\\s*)(?:#.*)?$",
+              "begin": "^(\\s+)(script)(\\s*:\\s*)([>|](?:[-+][1-9]?|[1-9][-+]?)?\\s*)(?:#.*)?$",
               "beginCaptures": {
                 "2": {
                   "name": "entity.name.tag.yaml"

@@ -55,7 +55,7 @@
       "patterns": [
         {
           "contentName": "meta.embedded.block.shellscript",
-          "begin": "^(\\s+)(run)(\\s*:\\s*)([>|][-+0-9\\s]*\\s*)(?:#.*)?$",
+          "begin": "^(\\s+)(run)(\\s*:\\s*)([>|](?:[-+][1-9]?|[1-9][-+]?)?\\s*)(?:#.*)?$",
           "beginCaptures": {
             "2": {
               "name": "entity.name.tag.yaml"
@@ -97,7 +97,7 @@
       "patterns": [
         {
           "contentName": "meta.embedded.block.powershell",
-          "begin": "^(\\s+)(run)(\\s*:\\s*)([>|][-+0-9\\s]*\\s*)(?:#.*)?$",
+          "begin": "^(\\s+)(run)(\\s*:\\s*)([>|](?:[-+][1-9]?|[1-9][-+]?)?\\s*)(?:#.*)?$",
           "beginCaptures": {
             "2": {
               "name": "entity.name.tag.yaml"
@@ -139,7 +139,7 @@
       "patterns": [
         {
           "contentName": "meta.embedded.block.bat",
-          "begin": "^(\\s+)(run)(\\s*:\\s*)([>|][-+0-9\\s]*\\s*)(?:#.*)?$",
+          "begin": "^(\\s+)(run)(\\s*:\\s*)([>|](?:[-+][1-9]?|[1-9][-+]?)?\\s*)(?:#.*)?$",
           "beginCaptures": {
             "2": {
               "name": "entity.name.tag.yaml"
@@ -181,7 +181,7 @@
       "patterns": [
         {
           "contentName": "meta.embedded.block.python",
-          "begin": "^(\\s+)(run)(\\s*:\\s*)([>|][-+0-9\\s]*\\s*)(?:#.*)?$",
+          "begin": "^(\\s+)(run)(\\s*:\\s*)([>|](?:[-+][1-9]?|[1-9][-+]?)?\\s*)(?:#.*)?$",
           "beginCaptures": {
             "2": {
               "name": "entity.name.tag.yaml"
@@ -223,7 +223,7 @@
       "patterns": [
         {
           "contentName": "meta.embedded.block.javascript",
-          "begin": "^(\\s+)(run)(\\s*:\\s*)([>|][-+0-9\\s]*\\s*)(?:#.*)?$",
+          "begin": "^(\\s+)(run)(\\s*:\\s*)([>|](?:[-+][1-9]?|[1-9][-+]?)?\\s*)(?:#.*)?$",
           "beginCaptures": {
             "2": {
               "name": "entity.name.tag.yaml"
