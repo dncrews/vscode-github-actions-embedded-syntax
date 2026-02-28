@@ -208,6 +208,16 @@ test('uses header regex preserves YAML-like capture groups for github-script ref
   assert.equal(match[4], 'actions/github-script@feature/foo');
 });
 
+test('matches versionless and single-quoted uses variants', () => {
+  const result = analyzeFixture('github-script-uses-variants.yml');
+
+  assert.equal([...result.githubScriptStepUsesLines].length, 3);
+  assert.equal([...result.scriptHeaderLines].length, 3);
+  assert.ok(result.scriptBodyLines.has(12), 'versionless uses body should be embedded');
+  assert.ok(result.scriptBodyLines.has(16), 'single-quoted uses body should be embedded');
+  assert.ok(result.scriptBodyLines.has(20), 'standard uses body should be embedded');
+});
+
 test('grammar scope names use a valid TextMate source prefix', () => {
   const scopeNamePattern = /^(text|source)(\.[\w0-9-]+)+$/;
   const contributedScopes = packageJson.contributes.grammars.map((entry) => entry.scopeName);

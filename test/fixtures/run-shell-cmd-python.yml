@@ -1,0 +1,30 @@
+name: test
+
+on: workflow_dispatch
+
+jobs:
+  demo:
+    runs-on: windows-latest
+    steps:
+      - name: cmd example
+        shell: cmd
+        run: |
+          echo Hello from cmd
+          dir /b
+
+      - name: quoted cmd
+        shell: "cmd"
+        run: |
+          echo Quoted cmd shell
+
+      - name: python example
+        shell: python
+        run: |
+          import os
+          print(os.getcwd())
+
+      - name: quoted python
+        shell: 'python'
+        run: |
+          x = 42
+          print(x)

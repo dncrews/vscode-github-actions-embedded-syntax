@@ -1,0 +1,28 @@
+name: test
+
+on: workflow_dispatch
+
+jobs:
+  demo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: sh example
+        shell: sh
+        run: |
+          echo "hello from sh"
+          ls -la
+
+      - name: quoted sh
+        shell: 'sh'
+        run: |
+          echo "quoted sh"
+
+      - name: powershell example
+        shell: powershell
+        run: |
+          Write-Host "powershell full name"
+
+      - name: quoted powershell
+        shell: "powershell"
+        run: |
+          Write-Host "quoted powershell"
