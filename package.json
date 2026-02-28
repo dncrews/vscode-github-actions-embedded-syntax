@@ -2,7 +2,7 @@
   "name": "vscode-github-actions-embedded-syntax",
   "displayName": "GitHub Actions Embedded Syntax Highlighting",
   "description": "Embedded syntax highlighting for GitHub Actions YAML (actions/github-script and run blocks with shell detection; best with github.vscode-github-actions).",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "license": "MIT",
   "publisher": "dncrews",
   "icon": "media/icon.png",

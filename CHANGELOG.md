@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.2](https://github.com/dncrews/vscode-github-actions-embedded-syntax/compare/v1.0.1...v1.0.2) (2026-02-28)
+
+
+### Bug Fixes
+
+* **grammar:** correct block scalar modifier regex to match YAML spec ([0b1ba77](https://github.com/dncrews/vscode-github-actions-embedded-syntax/commit/0b1ba773ffd59a54626ead126f6b95c0a6f55703))
+
 ## [1.0.1](https://github.com/dncrews/vscode-github-actions-embedded-syntax/compare/v1.0.0...v1.0.1) (2026-02-28)
 
 
