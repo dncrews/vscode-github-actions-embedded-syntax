@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/dncrews/vscode-github-actions-embedded-syntax/compare/v1.0.2...v1.1.0) (2026-03-02)
+
+
+### Features
+
+* **dependencies:** add vscode-github-actions as a direct dependency ([0e59459](https://github.com/dncrews/vscode-github-actions-embedded-syntax/commit/0e594590191dca8d011ed90a1fff39f41efc9876))
+
 ## [1.0.2](https://github.com/dncrews/vscode-github-actions-embedded-syntax/compare/v1.0.1...v1.0.2) (2026-02-28)
 
 
