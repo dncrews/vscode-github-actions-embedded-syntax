@@ -17,7 +17,7 @@ It supports:
 
 - VS Code 1.85.0 or newer
 - A YAML grammar that exposes the standard scopes VS Code uses for YAML and embedded TextMate injections
-- Best results when used alongside `github.vscode-github-actions`
+- Requires `github.vscode-github-actions`
 
 ## Installation
 
@@ -46,9 +46,9 @@ To try the latest build from `main` before a Marketplace release:
 
 The `Nightly` prerelease is overwritten on each push to `main` and is intended for testing the latest unreleased build.
 
-## Recommended companion extension
+## Required companion extension
 
-For the best overall GitHub Actions editing experience (language mode, schemas, and validations), use this alongside the GitHub Actions extension: `github.vscode-github-actions`.
+This extension declares `github.vscode-github-actions` as an extension dependency. VS Code should install it alongside this extension, and it provides the GitHub Actions language mode, schemas, and validations that this grammar injection builds on.
 
 ## What it does
 
