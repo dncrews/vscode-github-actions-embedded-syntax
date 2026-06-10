@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/dncrews/vscode-github-actions-embedded-syntax/compare/v1.1.0...v1.2.0) (2026-06-10)
+
+
+### Features
+
+* **deps:** add redhat YAML optional dependency ([05bd31b](https://github.com/dncrews/vscode-github-actions-embedded-syntax/commit/05bd31b65d6cc5862414576488a853b86b3b4256))
+
 ## [1.1.0](https://github.com/dncrews/vscode-github-actions-embedded-syntax/compare/v1.0.2...v1.1.0) (2026-03-02)
 
 
