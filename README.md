@@ -16,7 +16,7 @@ It supports:
 ## Requirements
 
 - VS Code 1.85.0 or newer
-- A YAML grammar that exposes the standard scopes VS Code uses for YAML and embedded TextMate injections
+- Requires `redhat.vscode-yaml` or another YAML grammar that exposes the standard scopes VS Code uses for YAML and embedded TextMate injections. This redhat extension is what is installed by default.
 - Requires `github.vscode-github-actions`
 
 ## Installation
@@ -48,7 +48,13 @@ The `Nightly` prerelease is overwritten on each push to `main` and is intended f
 
 ## Required companion extension
 
+### Github Actions extension
+
 This extension declares `github.vscode-github-actions` as an extension dependency. VS Code should install it alongside this extension, and it provides the GitHub Actions language mode, schemas, and validations that this grammar injection builds on.
+
+### YAML extension
+
+This extension also requires a YAML grammar that exposes the standard scopes for YAML and embedded TextMate injections. The extension defaults to `redhat.vscode-yaml` for this, but it can be disabled or uninstalled if you have another YAML extension that provides the necessary grammar support.
 
 ## What it does
 

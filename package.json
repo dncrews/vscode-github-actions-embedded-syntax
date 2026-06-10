@@ -41,6 +41,9 @@
   "extensionDependencies": [
     "github.vscode-github-actions"
   ],
+  "extensionPack": [
+    "redhat.vscode-yaml"
+  ],
   "contributes": {
     "grammars": [
       {
